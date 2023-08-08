@@ -1,8 +1,16 @@
 require_relative "game.rb"
 
 class Display
+  attr_accessor :lives
+
   def initialize
-    
+    @game = Game.new
+    @lives = 9
+  end
+
+  def player_feedback
+    puts "Lives left: #{@lives}"
+    unguessed_word_display(@game.word)
   end
 
   def unguessed_word_display(word)
@@ -13,6 +21,5 @@ class Display
   end
 end
 
-game = Game.new
 display = Display.new
-display.unguessed_word_display(game.word)
+display.player_feedback
