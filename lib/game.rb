@@ -1,12 +1,13 @@
 
 class Game
   attr_reader :word
-  attr_accessor :lives, :wrong_guesses
+  attr_accessor :lives, :wrong_guesses, :word_letters
 
   def initialize
     @word = word_picker
     @lives = 9
     @wrong_guesses = Array.new
+    @word_letters = Array.new
   end
 
   def word_picker
@@ -29,8 +30,13 @@ class Game
     end
 
     if word.split("").include?(letter)
+      if @word_letters.include?(letter)
+        puts "You've already guessed this letter. Please make another guess"
+        letter = make_guess
+        return
+      end
       p "You guessed right!"
-      return letter
+      @word_letters.push(letter)
     else
       if @wrong_guesses.include?(letter)
         puts "You've already made this guess and it was wrong. Try again"
@@ -43,5 +49,3 @@ class Game
     end
   end
 end
-
-game = Game.new

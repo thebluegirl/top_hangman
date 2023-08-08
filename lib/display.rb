@@ -14,13 +14,19 @@ class Display
       print "\n"
     end
     @game.make_guess
-    
-    player_feedback
+
+    until @game.lives == 0
+      player_feedback
+    end
   end
 
   def unguessed_word_display(word)
     word.split("").each do |letter|
-      print "__ "
+      if @game.word_letters.include?(letter)
+        print "#{letter} "
+      else
+        print "__ "
+      end
     end
     puts ""
   end
