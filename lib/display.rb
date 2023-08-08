@@ -13,9 +13,8 @@ class Display
       print @game.wrong_guesses
       print "\n"
     end
-
-    guess = gets.chomp
-    @game.guess_check(guess)
+    @game.make_guess
+    
     player_feedback
   end
 

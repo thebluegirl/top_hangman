@@ -19,14 +19,22 @@ class Game
     end
   end
 
-  def guess_check(letter)
+  def make_guess
+    letter = gets.downcase.chomp
+
+    if letter.length != 1 || letter.match(/\W/)
+      puts "This is not a valid guess. Please make a valid guess of one letter"
+      letter = make_guess
+      return
+    end
+
     if word.split("").include?(letter)
       p "You guessed right!"
+      return letter
     else
       if @wrong_guesses.include?(letter)
         puts "You've already made this guess and it was wrong. Try again"
-        letter = gets.chomp
-        letter = guess_check(letter)
+        letter = make_guess(letter)
         return
       end
       @lives -= 1
