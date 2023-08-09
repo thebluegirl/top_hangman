@@ -40,12 +40,12 @@ class Game
     else
       if @wrong_guesses.include?(letter)
         puts "You've already made this guess and it was wrong. Try again"
-        letter = make_guess(letter)
+        letter = make_guess
         return
       end
       @lives -= 1
       @wrong_guesses.push(letter)
-      puts "Bad guess! :("
+      puts "Bad guess!"
     end
   end
 

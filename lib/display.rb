@@ -8,6 +8,7 @@ class Display
   def gameplay
     until @game.game_over?
       player_feedback
+      game_lost
     end
   end
 
@@ -15,12 +16,14 @@ class Display
     puts "Lives left: #{@game.lives}"
     unguessed_word_display(@game.word)
     if !@game.wrong_guesses.empty?
+      print "Bad guesses: "
       print @game.wrong_guesses
       print "\n"
     end
     puts "What is the word? Guess one of the letters in it"
 
     @game.make_guess
+    puts ""
   end
 
   def unguessed_word_display(word)
@@ -32,6 +35,13 @@ class Display
       end
     end
     puts ""
+  end
+
+  def game_lost
+    if @game.game_over? && @game.lives == 0
+      puts "You lose :("
+      puts "The word was '#{@game.word}'"
+    end
   end
 end
 
