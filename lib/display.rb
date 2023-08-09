@@ -5,19 +5,22 @@ class Display
     @game = Game.new
   end
 
+  def gameplay
+    until @game.game_over?
+      player_feedback
+    end
+  end
+
   def player_feedback
     puts "Lives left: #{@game.lives}"
     unguessed_word_display(@game.word)
-
     if !@game.wrong_guesses.empty?
       print @game.wrong_guesses
       print "\n"
     end
-    @game.make_guess
+    puts "What is the word? Guess one of the letters in it"
 
-    until @game.lives == 0
-      player_feedback
-    end
+    @game.make_guess
   end
 
   def unguessed_word_display(word)
@@ -33,4 +36,4 @@ class Display
 end
 
 display = Display.new
-display.player_feedback
+display.gameplay

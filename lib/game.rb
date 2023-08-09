@@ -48,4 +48,12 @@ class Game
       puts "Bad guess! :("
     end
   end
+
+  def game_over?
+    if @lives == 0
+      return true
+    else
+      return false
+    end
+  end
 end
