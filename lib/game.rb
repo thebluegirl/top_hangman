@@ -1,11 +1,12 @@
 
 class Game
   attr_reader :word
-  attr_accessor :lives, :wrong_guesses, :word_letters
+  attr_accessor :lives, :wrong_guesses, :word_letters, :game_won
 
   def initialize
     @word = word_picker
     @lives = 9
+    @game_won = false
     @wrong_guesses = Array.new
     @word_letters = Array.new
   end
@@ -50,10 +51,21 @@ class Game
   end
 
   def game_over?
-    if @lives == 0
+    game_win?
+    if @lives == 0 || @game_won
       return true
     else
       return false
+    end
+  end
+
+  def game_win?
+    @word.each_char do |character|
+      if !@word_letters.include?(character)
+        @game_won = false
+        return
+      end
+      @game_won = true
     end
   end
 end

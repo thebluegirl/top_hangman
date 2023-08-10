@@ -8,7 +8,12 @@ class Display
   def gameplay
     until @game.game_over?
       player_feedback
-      game_lost
+    end
+
+    if @game.game_won
+      win_feedback
+    elsif @game.lives == 0
+      lose_feedback
     end
   end
 
@@ -37,11 +42,16 @@ class Display
     puts ""
   end
 
-  def game_lost
+  def lose_feedback
     if @game.game_over? && @game.lives == 0
       puts "You lose :("
       puts "The word was '#{@game.word}'"
     end
+  end
+
+  def win_feedback
+    puts "You guessed the word #{@game.word}!"
+    puts "You win!"
   end
 end
 
