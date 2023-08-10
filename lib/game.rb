@@ -24,6 +24,10 @@ class Game
   def make_guess
     letter = gets.downcase.chomp
 
+    if letter == "save"
+      return "save"
+    end
+
     if letter.length != 1 || letter.match(/\W/)
       puts "This is not a valid guess. Please make a valid guess of one letter"
       letter = make_guess
@@ -50,15 +54,6 @@ class Game
     end
   end
 
-  def game_over?
-    game_win?
-    if @lives == 0 || @game_won
-      return true
-    else
-      return false
-    end
-  end
-
   def game_win?
     @word.each_char do |character|
       if !@word_letters.include?(character)
@@ -66,6 +61,15 @@ class Game
         return
       end
       @game_won = true
+    end
+  end
+
+  def game_over?
+    game_win?
+    if @lives == 0 || @game_won
+      return true
+    else
+      return false
     end
   end
 end

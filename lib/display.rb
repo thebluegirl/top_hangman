@@ -1,4 +1,5 @@
 require_relative "game.rb"
+require 'yaml'
 
 class Display
   def initialize
@@ -25,9 +26,11 @@ class Display
       print @game.wrong_guesses
       print "\n"
     end
-    puts "What is the word? Guess one of the letters in it"
-
-    @game.make_guess
+    puts "What is the word? Guess one of the letters in it or type 'save' to save this game"
+    
+    if @game.make_guess == "save"
+      save_game(@game)
+    end
     puts ""
   end
 
@@ -50,8 +53,13 @@ class Display
   end
 
   def win_feedback
-    puts "You guessed the word #{@game.word}!"
+    puts "You guessed the word '#{@game.word}'!"
     puts "You win!"
+  end
+
+  def save_game(variable)
+    File.open("saved_gameplay.yml", "w") {|file| file.write(variable.to_yaml)}
+    exit
   end
 end
 
