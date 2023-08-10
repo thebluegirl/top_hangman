@@ -3,7 +3,7 @@ require 'yaml'
 
 class Display
   def initialize
-    @game = Game.new
+    @game = load_game
   end
 
   def gameplay
@@ -60,6 +60,27 @@ class Display
   def save_game(variable)
     File.open("saved_gameplay.yml", "w") {|file| file.write(variable.to_yaml)}
     exit
+  end
+
+  def load_game
+    if File.exists?("saved_gameplay.yml")
+      puts "You have a saved game."
+      puts "Type 'continue' to resume your last game or type 'new' to start a new game."
+      puts "Note that starting a new game means you will permanently lose your saved game"
+      game_type = gets.chomp.downcase
+
+      if game_type == "continue"
+        return YAML::load_file("saved_gameplay.yml", permitted_classes:[Game])
+      elsif game_type == "new"
+        return Game.new
+      else
+        puts "This is not a valid option. Please enter either 'continue' or 'new'."
+        load_game
+        return
+      end
+    else
+      return Game.new
+    end
   end
 end
 
