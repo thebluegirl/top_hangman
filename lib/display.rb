@@ -1,12 +1,12 @@
 require_relative "game.rb"
 require 'yaml'
 
-class Display
+class GamePlay
   def initialize
     @game = load_game
   end
 
-  def gameplay
+  def start
     until @game.game_over?
       player_feedback
     end
@@ -23,7 +23,13 @@ class Display
     unguessed_word_display(@game.word)
     if !@game.wrong_guesses.empty?
       print "Bad guesses: "
-      print @game.wrong_guesses
+      @game.wrong_guesses.each do |letter|
+        if letter == @game.wrong_guesses.last
+          print "#{letter}"
+        else
+          print "#{letter}, "
+        end
+      end
       print "\n"
     end
     puts "What is the word? Guess one of the letters in it or type 'save' to save this game"
@@ -67,7 +73,7 @@ class Display
       puts "You have a saved game."
       puts "Type 'continue' to resume your last game or type 'new' to start a new game."
       puts "Note that starting a new game means you will permanently lose your saved game"
-      game_type = gets.chomp.downcase
+      game_type = gets.chomp.rstrip.downcase
 
       if game_type == "continue"
         game = YAML::load_file("saved_gameplay.yml", permitted_classes:[Game])
@@ -87,5 +93,5 @@ class Display
   end
 end
 
-display = Display.new
-display.gameplay
+game_play = GamePlay.new
+game_play.start
