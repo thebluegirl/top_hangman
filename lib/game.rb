@@ -22,7 +22,7 @@ class Game
   end
 
   def make_guess
-    letter = gets.downcase.chomp
+    letter = gets.rstrip.downcase.chomp
 
     if letter == "save"
       return "save"
