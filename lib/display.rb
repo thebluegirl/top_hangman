@@ -70,8 +70,11 @@ class Display
       game_type = gets.chomp.downcase
 
       if game_type == "continue"
-        return YAML::load_file("saved_gameplay.yml", permitted_classes:[Game])
+        game = YAML::load_file("saved_gameplay.yml", permitted_classes:[Game])
+        File.delete("saved_gameplay.yml")
+        return game
       elsif game_type == "new"
+        File.delete("saved_gameplay.yml")
         return Game.new
       else
         puts "This is not a valid option. Please enter either 'continue' or 'new'."
