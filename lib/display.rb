@@ -41,7 +41,7 @@ class GamePlay
   end
 
   def unguessed_word_display(word)
-    word.split("").each do |letter|
+    word.each_char do |letter|
       if @game.word_letters.include?(letter)
         print "#{letter} "
       else
