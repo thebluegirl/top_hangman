@@ -28,7 +28,7 @@ class Game
       return "save"
     end
 
-    if letter.length != 1 || letter.match(/\W/)
+    if letter.length != 1 || letter.match(/[\W\d]/)
       puts "This is not a valid guess. Please make a valid guess of one letter"
       letter = make_guess
       return
